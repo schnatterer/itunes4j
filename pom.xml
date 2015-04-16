@@ -3,7 +3,7 @@
 
 	<groupId>info.schnatterer</groupId>
 	<artifactId>itunes4j</artifactId>
-	<version>1.0</version>
+	<version>1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>itunes4j</name>
@@ -20,7 +20,7 @@
 		<connection>scm:git:ssh://github.com/schnatterer/itunes4j.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/schnatterer/itunes4j.git</developerConnection>
 		<url>https://github.com/schnatterer/itunes4j</url>
-		<tag>v.1.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<properties>
