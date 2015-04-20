@@ -45,7 +45,7 @@ public class Track {
 	}
 
 	public Rating getRating() {
-		return Rating.fromInt(wrappedTrack.rating());
+		return Rating.fromInternalInt(wrappedTrack.rating());
 	}
 
 	public void setRating(Rating rating) {
