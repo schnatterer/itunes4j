@@ -3,6 +3,8 @@ package info.schnatterer.itunes4j;
 import info.schnatterer.itunes4j.entity.Playlist;
 import info.schnatterer.itunes4j.entity.Track;
 
+import java.io.IOException;
+
 import com4j.itunes.ClassFactory;
 import com4j.itunes.IITFileOrCDTrack;
 import com4j.itunes.IITOperationStatus;
@@ -38,41 +40,56 @@ public class ITunes {
 	/**
 	 * Synchronously add a single file. Blocking operation! When a file at the
 	 * same path is already present, a reference to the existing object is
-	 * returned. This will not resul in duplicate tracks.
+	 * returned. This will not result in duplicate tracks.
 	 * 
 	 * @param filePath
 	 * @return waits for file to be added and returns reference to the file
 	 * @throws ITunesException
 	 *             when iTunes returns an unexpected type of track
+	 * @throws IOException
+	 *             adding file did not return an iTunes track. Most likely the
+	 *             file does not exist, is not a media file or is corrupt.
 	 */
-	public Track addFile(String filePath) throws ITunesException {
+	public Track addFile(String filePath) throws ITunesException, IOException {
 
-		IITOperationStatus futureTrack = iTunes.libraryPlaylist().addFile(
-				filePath);
-		if (futureTrack == null) {
-			throw new ITunesException(
-					"Error adding file to iTunes. Invalid path? Path="
-							+ filePath);
-		}
-
-		while (futureTrack.inProgress()) {
-			try {
-				Thread.sleep(50);
-				System.out.println("Slept 50ms");
-			} catch (InterruptedException e) {
-				throw new RuntimeException(
-						"Error waiting for iTunes to finish adding file", e);
+		IITOperationStatus futureTrack = null;
+		IITTrack track = null;
+		try {
+			futureTrack = iTunes.libraryPlaylist().addFile(filePath);
+			if (futureTrack == null) {
+				throw new IOException(
+						"Error adding file to iTunes. Invalid path or file corrupt? Path="
+								+ filePath);
 			}
-		}
-		IITTrack track = futureTrack.tracks(1);
-		if (ITTrackKind.ITTrackKindFile.equals(track.kind())) {
-			// Cast to File Track
-			return new Track(track.queryInterface(IITFileOrCDTrack.class));
-		} else {
-			throw new ITunesException(
-					"Created playlist was of unexpected type \"" + track.kind()
-							+ "\". Expected \""
-							+ ITTrackKind.ITTrackKindFile.name() + "\"");
+
+			while (futureTrack.inProgress()) {
+				try {
+					Thread.sleep(50);
+					System.out.println("Slept 50ms");
+				} catch (InterruptedException e) {
+					throw new RuntimeException(
+							"Error waiting for iTunes to finish adding file", e);
+				}
+			}
+			track = futureTrack.tracks(1);
+			if (ITTrackKind.ITTrackKindFile.equals(track.kind())) {
+				// Cast to File Track
+				Track wrappedTrack = new Track(
+						track.queryInterface(IITFileOrCDTrack.class));
+				return wrappedTrack;
+			} else {
+				throw new ITunesException(
+						"Created track was of unexpected type \""
+								+ track.kind() + "\". Expected \""
+								+ ITTrackKind.ITTrackKindFile.name() + "\"");
+			}
+		} finally {
+			if (track != null) {
+				track.dispose();
+			}
+			if (futureTrack != null) {
+				futureTrack.dispose();
+			}
 		}
 	}
 
@@ -86,15 +103,24 @@ public class ITunes {
 	 *             when itunes returns an unexpected type of playlist
 	 */
 	public Playlist createPlaylist(String playlistName) throws ITunesException {
-		IITPlaylist playlist = iTunes.createPlaylist(playlistName);
+		IITPlaylist playlist = null;
+		try {
+			playlist = iTunes.createPlaylist(playlistName);
 
-		if (ITPlaylistKind.ITPlaylistKindUser.equals(playlist.kind())) {
-			return new Playlist(playlist.queryInterface(IITUserPlaylist.class));
-		} else {
-			throw new ITunesException(
-					"Created playlist was of unexpected type \""
-							+ playlist.kind() + "\". Expected \""
-							+ ITPlaylistKind.ITPlaylistKindUser.name() + "\"");
+			if (ITPlaylistKind.ITPlaylistKindUser.equals(playlist.kind())) {
+				return new Playlist(
+						playlist.queryInterface(IITUserPlaylist.class));
+			} else {
+				throw new ITunesException(
+						"Created playlist was of unexpected type \""
+								+ playlist.kind() + "\". Expected \""
+								+ ITPlaylistKind.ITPlaylistKindUser.name()
+								+ "\"");
+			}
+		} finally {
+			if (playlist != null) {
+				playlist.dispose();
+			}
 		}
 	}
 }

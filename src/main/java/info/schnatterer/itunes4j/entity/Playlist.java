@@ -27,4 +27,10 @@ public class Playlist {
 		}
 	}
 
+	/**
+	 * Releases reference to COM object.
+	 */
+	public void dispose() {
+		wrappedPlaylist.dispose();
+	}
 }

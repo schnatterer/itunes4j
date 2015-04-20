@@ -67,4 +67,11 @@ public class Track {
 	public String getArtist() {
 		return wrappedTrack.artist();
 	}
+
+	/**
+	 * Releases reference to COM object.
+	 */
+	public void dispose() {
+		wrappedTrack.dispose();
+	}
 }
