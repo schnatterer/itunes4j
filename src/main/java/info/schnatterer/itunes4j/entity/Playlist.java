@@ -1,6 +1,6 @@
 package info.schnatterer.itunes4j.entity;
 
-import info.schnatterer.itunes4j.ITunesException;
+import info.schnatterer.itunes4j.exception.ITunesException;
 
 import com4j.itunes.IITOperationStatus;
 import com4j.itunes.IITUserPlaylist;

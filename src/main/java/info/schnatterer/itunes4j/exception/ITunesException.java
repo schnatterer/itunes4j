@@ -1,4 +1,4 @@
-package info.schnatterer.itunes4j;
+package info.schnatterer.itunes4j.exception;
 
 public class ITunesException extends Exception {
 	private static final long serialVersionUID = 1L;
@@ -54,5 +54,4 @@ public class ITunesException extends Exception {
 	public ITunesException(Throwable cause) {
 		super(cause);
 	}
-
 }

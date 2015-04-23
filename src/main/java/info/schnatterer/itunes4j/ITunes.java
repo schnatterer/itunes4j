@@ -2,6 +2,7 @@ package info.schnatterer.itunes4j;
 
 import info.schnatterer.itunes4j.entity.Playlist;
 import info.schnatterer.itunes4j.entity.Track;
+import info.schnatterer.itunes4j.exception.ITunesException;
 
 import java.io.IOException;
 
