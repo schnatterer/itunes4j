@@ -1,5 +1,7 @@
 package info.schnatterer.itunes4j.exception;
 
+import com4j.ComException;
+
 public class ITunesException extends Exception {
 	private static final long serialVersionUID = 1L;
 
@@ -53,5 +55,34 @@ public class ITunesException extends Exception {
 	 */
 	public ITunesException(Throwable cause) {
 		super(cause);
+	}
+
+	/**
+	 * @return the error code returned by itunes. Might be <code>null</code>.
+	 */
+	public Integer getiTunesErrorCode() {
+		return null;
+	}
+
+	/**
+	 * Creates a new {@link ITunesException} from a {@link ComException}. This
+	 * might either be a more concrete sub type of {@link ITunesException} or a
+	 * generic {@link ITunesException}.
+	 * 
+	 * @param e
+	 *            the {@link ComException} to wrap.
+	 * @return a new instance of {@link ITunesException} or one of its
+	 *         subclasses
+	 */
+	public static ITunesException createITunesException(ComException e) {
+		switch (e.getHRESULT()) {
+		case NotModifiableException.ERROR_CODE:
+			return new NotModifiableException(e);
+		case WrongParameterException.ERROR_CODE:
+			return new WrongParameterException(e);
+		default:
+			// Generic solution
+			return new ITunesException(e);
+		}
 	}
 }

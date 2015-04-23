@@ -6,6 +6,7 @@ import info.schnatterer.itunes4j.exception.ITunesException;
 
 import java.io.IOException;
 
+import com4j.ComException;
 import com4j.itunes.ClassFactory;
 import com4j.itunes.IITFileOrCDTrack;
 import com4j.itunes.IITOperationStatus;
@@ -84,6 +85,8 @@ public class ITunes {
 								+ track.kind() + "\". Expected \""
 								+ ITTrackKind.ITTrackKindFile.name() + "\"");
 			}
+		} catch (ComException e) {
+			throw ITunesException.createITunesException(e);
 		} finally {
 			if (track != null) {
 				track.dispose();
@@ -118,6 +121,8 @@ public class ITunes {
 								+ ITPlaylistKind.ITPlaylistKindUser.name()
 								+ "\"");
 			}
+		} catch (ComException e) {
+			throw ITunesException.createITunesException(e);
 		} finally {
 			if (playlist != null) {
 				playlist.dispose();
