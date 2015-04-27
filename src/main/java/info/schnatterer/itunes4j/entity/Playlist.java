@@ -18,13 +18,25 @@ public class Playlist {
 	 * to iTunes first (asynchronously!)
 	 * 
 	 * @param filePath
+	 *            the absolute file path of the track to add
 	 * @throws ITunesException
+	 *             when iTunes is unable to add the track
 	 */
 	public void addFile(String filePath) throws ITunesException {
 		IITOperationStatus futureFile = wrappedPlaylist.addFile(filePath);
 		if (futureFile == null) {
 			throw new ITunesException("Unable to add file to iTunes");
 		}
+	}
+
+	/**
+	 * Adds a track object to the playlist.
+	 * 
+	 * @param track
+	 *            the track object to add
+	 */
+	public void addTrack(Track track) {
+		wrappedPlaylist.addTrack(track.getWrappedTrack());
 	}
 
 	/**
