@@ -118,7 +118,7 @@ public class ITunes {
 	 * present, another one with the same name will be created.
 	 * 
 	 * @param playlistName
-	 * @return
+	 * @return a new playlist instance
 	 * @throws ITunesException
 	 *             when itunes returns an unexpected type of playlist
 	 */
