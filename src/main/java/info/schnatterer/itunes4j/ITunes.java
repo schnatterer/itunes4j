@@ -50,7 +50,8 @@ public class ITunes {
 	 *             when iTunes returns an unexpected type of track
 	 * @throws IOException
 	 *             adding file did not return an iTunes track. Most likely the
-	 *             file does not exist, is not a media file or is corrupt.
+	 *             file does not exist, is not a (supported) media file or is
+	 *             corrupt.
 	 */
 	public Track addFile(String filePath) throws ITunesException, IOException {
 
