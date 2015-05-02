@@ -15,6 +15,8 @@
  */
 package info.schnatterer.itunes4j.exception;
 
+import java.util.function.Supplier;
+
 import com4j.ComException;
 
 public class ITunesException extends Exception {
@@ -80,24 +82,68 @@ public class ITunesException extends Exception {
 	}
 
 	/**
-	 * Creates a new {@link ITunesException} from a {@link ComException}. This
-	 * might either be a more concrete sub type of {@link ITunesException} or a
-	 * generic {@link ITunesException}.
+	 * Creates a new {@link ITunesException} from a {@link RuntimeException}
+	 * (typically a {@link ComException}). This might either be a more concrete
+	 * sub type of {@link ITunesException} or a generic {@link ITunesException}.
 	 * 
 	 * @param e
-	 *            the {@link ComException} to wrap.
+	 *            the {@link RuntimeException} to wrap.
 	 * @return a new instance of {@link ITunesException} or one of its
 	 *         subclasses
 	 */
-	public static ITunesException createITunesException(ComException e) {
-		switch (e.getHRESULT()) {
-		case NotModifiableException.ERROR_CODE:
-			return new NotModifiableException(e);
-		case WrongParameterException.ERROR_CODE:
-			return new WrongParameterException(e);
-		default:
-			// Generic solution
-			return new ITunesException(e);
+	public static ITunesException createITunesException(RuntimeException e) {
+		if (e instanceof ComException) {
+			ComException comException = (ComException) e;
+			switch (comException.getHRESULT()) {
+			case NotModifiableException.ERROR_CODE:
+				return new NotModifiableException(comException);
+			case WrongParameterException.ERROR_CODE:
+				return new WrongParameterException(comException);
+			default:
+				break;
+			}
+		}
+		// Generic solution
+		return new ITunesException(e);
+	}
+
+	/**
+	 * Runs code without return value and wraps any possible
+	 * {@link RuntimeException} into a {@link ITunesException}.
+	 * 
+	 * @param runnable
+	 *            the code block to execute
+	 * 
+	 * @throws ITunesException
+	 *             wraps any {@link RuntimeException}
+	 * 
+	 * @see {@link #createITunesException(RuntimeException)}
+	 */
+	public static <T> void wrap(Runnable runnable) throws ITunesException {
+		try {
+			runnable.run();
+		} catch (RuntimeException e) {
+			throw ITunesException.createITunesException(e);
+		}
+	}
+
+	/**
+	 * Runs code with return value and wraps any possible
+	 * {@link RuntimeException} into a {@link ITunesException}.
+	 * 
+	 * @param supplier
+	 *            the code block to execute
+	 * 
+	 * @throws ITunesException
+	 *             wraps any {@link RuntimeException}
+	 * 
+	 * @see {@link #createITunesException(RuntimeException)}
+	 */
+	public static <T> T wrap(Supplier<T> supplier) throws ITunesException {
+		try {
+			return supplier.get();
+		} catch (RuntimeException e) {
+			throw ITunesException.createITunesException(e);
 		}
 	}
 }
