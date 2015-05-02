@@ -117,7 +117,7 @@ public class ITunesException extends Exception {
 	 * @throws ITunesException
 	 *             wraps any {@link RuntimeException}
 	 * 
-	 * @see {@link #createITunesException(RuntimeException)}
+	 * @see #createITunesException(RuntimeException)
 	 */
 	public static <T> void wrap(Runnable runnable) throws ITunesException {
 		try {
@@ -137,7 +137,7 @@ public class ITunesException extends Exception {
 	 * @throws ITunesException
 	 *             wraps any {@link RuntimeException}
 	 * 
-	 * @see {@link #createITunesException(RuntimeException)}
+	 * @see #createITunesException(RuntimeException)
 	 */
 	public static <T> T wrap(Supplier<T> supplier) throws ITunesException {
 		try {
