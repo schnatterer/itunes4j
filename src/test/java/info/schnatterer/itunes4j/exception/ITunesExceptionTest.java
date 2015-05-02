@@ -27,7 +27,7 @@ import org.mockito.junit.MockitoRule;
 import com4j.ComException;
 
 /**
- * @author Hannes
+ * @author schnatterer
  *
  */
 public class ITunesExceptionTest {
