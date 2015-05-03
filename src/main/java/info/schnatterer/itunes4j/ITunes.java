@@ -17,8 +17,7 @@ package info.schnatterer.itunes4j;
 
 import info.schnatterer.itunes4j.entity.Playlist;
 import info.schnatterer.itunes4j.entity.Track;
-import info.schnatterer.itunes4j.entity.com4j.Com4jPlaylist;
-import info.schnatterer.itunes4j.entity.com4j.Com4jTrack;
+import info.schnatterer.itunes4j.entity.com4j.Com4jEntityFactory;
 import info.schnatterer.itunes4j.exception.ITunesException;
 
 import java.io.IOException;
@@ -94,7 +93,7 @@ public class ITunes {
 			track = futureTrack.tracks(1);
 			if (ITTrackKind.ITTrackKindFile.equals(track.kind())) {
 				// Cast to File Track
-				Track wrappedTrack = Com4jTrack.createTrack(track
+				Track wrappedTrack = Com4jEntityFactory.createTrack(track
 						.queryInterface(IITFileOrCDTrack.class));
 				return wrappedTrack;
 			} else {
@@ -130,7 +129,7 @@ public class ITunes {
 			playlist = iTunes.createPlaylist(playlistName);
 
 			if (ITPlaylistKind.ITPlaylistKindUser.equals(playlist.kind())) {
-				return Com4jPlaylist.createPlaylist(playlist
+				return Com4jEntityFactory.createPlaylist(playlist
 						.queryInterface(IITUserPlaylist.class));
 			} else {
 				throw new ITunesException(

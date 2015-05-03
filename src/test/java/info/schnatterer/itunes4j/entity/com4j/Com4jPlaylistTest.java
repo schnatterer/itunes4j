@@ -47,7 +47,7 @@ public class Com4jPlaylistTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void addTrackException() throws ITunesException {
-		Com4jPlaylist.createPlaylist(iTunesPlaylistExceptionMock)
+		Com4jEntityFactory.createPlaylist(iTunesPlaylistExceptionMock)
 				.addTrack(null);
 	}
 
@@ -60,7 +60,8 @@ public class Com4jPlaylistTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void addFileException() throws ITunesException {
-		Com4jPlaylist.createPlaylist(iTunesPlaylistExceptionMock).addFile("");
+		Com4jEntityFactory.createPlaylist(iTunesPlaylistExceptionMock).addFile(
+				"");
 	}
 
 	// TODO finalize()

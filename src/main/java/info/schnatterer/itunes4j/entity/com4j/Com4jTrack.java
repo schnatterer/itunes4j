@@ -23,25 +23,12 @@ import java.util.Date;
 
 import com4j.itunes.IITFileOrCDTrack;
 
-public class Com4jTrack implements Track {
+class Com4jTrack implements Track {
 
 	private final IITFileOrCDTrack wrappedTrack;
 
 	protected Com4jTrack(IITFileOrCDTrack wrappedTrack) {
 		this.wrappedTrack = wrappedTrack;
-	}
-
-	/**
-	 * Factory method for creating Tracks.
-	 * 
-	 * @param wrappedTrack
-	 *            the COM object wrapped by this {@link Com4jTrack}
-	 * 
-	 * @return a new instance
-	 */
-	public static Track createTrack(IITFileOrCDTrack wrappedTrack) {
-		return ITunesException.createWrapperProxy(Track.class, new Com4jTrack(
-				wrappedTrack));
 	}
 
 	@Override

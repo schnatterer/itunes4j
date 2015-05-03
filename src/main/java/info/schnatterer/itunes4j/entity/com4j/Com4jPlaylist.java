@@ -22,25 +22,12 @@ import info.schnatterer.itunes4j.exception.ITunesException;
 import com4j.itunes.IITOperationStatus;
 import com4j.itunes.IITUserPlaylist;
 
-public class Com4jPlaylist implements Playlist {
+class Com4jPlaylist implements Playlist {
 
 	private final IITUserPlaylist wrappedPlaylist;
 
 	protected Com4jPlaylist(IITUserPlaylist wrappedPlaylist) {
 		this.wrappedPlaylist = wrappedPlaylist;
-	}
-
-	/**
-	 * Factory method for creating Playlists.
-	 * 
-	 * @param wrappedPlaylist
-	 *            the COM object wrapped by this {@link Com4jPlaylist}
-	 * 
-	 * @return a new instance
-	 */
-	public static Playlist createPlaylist(IITUserPlaylist wrappedPlaylist) {
-		return ITunesException.createWrapperProxy(Playlist.class,
-				new Com4jPlaylist(wrappedPlaylist));
 	}
 
 	@Override
