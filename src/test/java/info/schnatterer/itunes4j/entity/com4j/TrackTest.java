@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package info.schnatterer.itunes4j.entity;
+package info.schnatterer.itunes4j.entity.com4j;
 
 import static org.mockito.Mockito.mock;
+import info.schnatterer.itunes4j.entity.Rating;
 import info.schnatterer.itunes4j.exception.ITunesException;
 
 import java.util.Date;
@@ -38,25 +39,27 @@ public class TrackTest {
 			});
 
 	/**
-	 * Asserts that {@link Track#getPlayedCount()} properly wraps exceptions.
+	 * Asserts that {@link Com4jTrack#getPlayedCount()} properly wraps
+	 * exceptions.
 	 * 
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
 	@Test(expected = ITunesException.class)
 	public void getPlayedCountException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).getPlayedCount();
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).getPlayedCount();
 	}
 
 	/**
-	 * Asserts that {@link Track#setPlayedCount(int)} properly wraps exceptions.
+	 * Asserts that {@link Com4jTrack#setPlayedCount(int)} properly wraps
+	 * exceptions.
 	 * 
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
 	@Test(expected = ITunesException.class)
 	public void setPlayedCountException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).setPlayedCount(1);
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).setPlayedCount(1);
 	}
 
 	/**
@@ -67,34 +70,36 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void getPlayedDateException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).getPlayedDate();
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).getPlayedDate();
 	}
 
 	/**
-	 * Asserts that {@link Track#setPlayedDate(java.util.Date)} properly wraps
-	 * exceptions.
+	 * Asserts that {@link Com4jTrack#setPlayedDate(java.util.Date)} properly
+	 * wraps exceptions.
 	 * 
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
 	@Test(expected = ITunesException.class)
 	public void setPlayedDateException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).setPlayedDate(new Date());
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).setPlayedDate(
+				new Date());
 	}
 
 	/**
-	 * Asserts that {@link Track#getSkippedCount()} properly wraps exceptions.
+	 * Asserts that {@link Com4jTrack#getSkippedCount()} properly wraps
+	 * exceptions.
 	 * 
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
 	@Test(expected = ITunesException.class)
 	public void getSkippedCountException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).getSkippedCount();
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).getSkippedCount();
 	}
 
 	/**
-	 * Asserts that {@link Track#setSkippedCount(int)} properly wraps
+	 * Asserts that {@link Com4jTrack#setSkippedCount(int)} properly wraps
 	 * exceptions.
 	 * 
 	 * @throws ITunesException
@@ -102,106 +107,101 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void setSkippedCountException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).setSkippedCount(1);
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).setSkippedCount(1);
 	}
 
 	/**
-	 * Asserts that {@link Track#getSkippedDate()} properly wraps exceptions.
-	 * 
-	 * @throws ITunesException
-	 *             the expected exception
-	 */
-	@Test(expected = ITunesException.class)
-	public void getSkippedDateException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).getSkippedDate();
-	}
-
-	/**
-	 * Asserts that {@link Track#setSkippedDate(java.util.Date)} properly wraps
+	 * Asserts that {@link Com4jTrack#getSkippedDate()} properly wraps
 	 * exceptions.
 	 * 
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
 	@Test(expected = ITunesException.class)
-	public void setSkippedDateException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).setSkippedDate(new Date());
+	public void getSkippedDateException() throws ITunesException {
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).getSkippedDate();
 	}
 
 	/**
-	 * Asserts that {@link Track#getRating()} properly wraps exceptions.
+	 * Asserts that {@link Com4jTrack#setSkippedDate(java.util.Date)} properly
+	 * wraps exceptions.
+	 * 
+	 * @throws ITunesException
+	 *             the expected exception
+	 */
+	@Test(expected = ITunesException.class)
+	public void setSkippedDateException() throws ITunesException {
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).setSkippedDate(
+				new Date());
+	}
+
+	/**
+	 * Asserts that {@link Com4jTrack#getRating()} properly wraps exceptions.
 	 * 
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
 	@Test(expected = ITunesException.class)
 	public void getRatingException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).getRating();
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).getRating();
 	}
 
 	/**
-	 * Asserts that {@link Track#setRating(Rating)} properly wraps exceptions.
+	 * Asserts that {@link Com4jTrack#setRating(Rating)} properly wraps
+	 * exceptions.
 	 * 
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
 	@Test(expected = ITunesException.class)
 	public void setRatingException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).setRating(Rating.One);
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).setRating(Rating.One);
 	}
 
 	/**
-	 * Asserts that {@link Track#getDateAdded()} properly wraps exceptions.
+	 * Asserts that {@link Com4jTrack#getDateAdded()} properly wraps exceptions.
 	 * 
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
 	@Test(expected = ITunesException.class)
 	public void getDateAddedException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).getDateAdded();
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).getDateAdded();
 	}
 
 	/**
-	 * Asserts that {@link Track#getDateModified()} properly wraps exceptions.
+	 * Asserts that {@link Com4jTrack#getDateModified()} properly wraps
+	 * exceptions.
 	 * 
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
 	@Test(expected = ITunesException.class)
 	public void getDateModifiedException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).getDateModified();
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).getDateModified();
 	}
 
 	/**
-	 * Asserts that {@link Track#getName()} properly wraps exceptions.
+	 * Asserts that {@link Com4jTrack#getName()} properly wraps exceptions.
 	 * 
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
 	@Test(expected = ITunesException.class)
 	public void getNameException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).getName();
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).getName();
 	}
 
 	/**
-	 * Asserts that {@link Track#getArtist()} properly wraps exceptions.
+	 * Asserts that {@link Com4jTrack#getArtist()} properly wraps exceptions.
 	 * 
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
 	@Test(expected = ITunesException.class)
 	public void getArtistException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).getArtist();
+		Com4jTrack.createTrack(iTunesTrackExceptionMock).getArtist();
 	}
 
-	/**
-	 * Asserts that {@link Track#dispose()} properly wraps exceptions.
-	 * 
-	 * @throws ITunesException
-	 *             the expected exception
-	 */
-	@Test(expected = ITunesException.class)
-	public void disposeException() throws ITunesException {
-		Track.createTrack(iTunesTrackExceptionMock).dispose();
-	}
+	// TODO finalize()
 }

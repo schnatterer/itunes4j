@@ -15,8 +15,8 @@
  */
 package info.schnatterer.itunes4j.entity;
 
+import info.schnatterer.itunes4j.entity.com4j.Com4jTrack;
 import info.schnatterer.itunes4j.exception.ITunesException;
-
 import com4j.itunes.IITOperationStatus;
 import com4j.itunes.IITUserPlaylist;
 
@@ -50,7 +50,7 @@ public class Playlist {
 	 * @param track
 	 *            the track object to add
 	 */
-	public void addTrack(Track track) {
+	public void addTrack(Com4jTrack track) {
 		wrappedPlaylist.addTrack(track.getWrappedTrack());
 	}
 

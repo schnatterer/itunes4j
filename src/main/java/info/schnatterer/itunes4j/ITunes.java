@@ -17,6 +17,7 @@ package info.schnatterer.itunes4j;
 
 import info.schnatterer.itunes4j.entity.Playlist;
 import info.schnatterer.itunes4j.entity.Track;
+import info.schnatterer.itunes4j.entity.com4j.Com4jTrack;
 import info.schnatterer.itunes4j.exception.ITunesException;
 
 import java.io.IOException;
@@ -92,7 +93,7 @@ public class ITunes {
 			track = futureTrack.tracks(1);
 			if (ITTrackKind.ITTrackKindFile.equals(track.kind())) {
 				// Cast to File Track
-				Track wrappedTrack = Track.createTrack(track
+				Track wrappedTrack = Com4jTrack.createTrack(track
 						.queryInterface(IITFileOrCDTrack.class));
 				return wrappedTrack;
 			} else {

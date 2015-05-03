@@ -15,12 +15,10 @@
  */
 package info.schnatterer.itunes4j.exception;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Optional;
-
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import java.lang.reflect.Proxy;
 
 import com4j.ComException;
 
@@ -112,58 +110,58 @@ public class ITunesException extends Exception {
 		return new ITunesException(e);
 	}
 
-	//
-	// @SuppressWarnings("unchecked")
-	// public static <T> T createWrapperProxy(T t) {
-	// Object proxy = Proxy.newProxyInstance(t.getClass().getClassLoader(),
-	// new Class[] { t.getClass() }, new WrappingInvocationHandler(t));
-	// return (T) proxy;
-	// }
-
 	/**
 	 * Creates a proxy object that wraps all {@link RuntimeException} thrown by
-	 * any method of an subject into {@link ITunesException}s. Make sure to
+	 * any method of a subject into {@link ITunesException}s. Make sure to
 	 * provide the proper method signature on the subject's methods!
 	 * 
+	 * @param subjectInterface
+	 *            the <b>interface</b> of the subject. Does not work with
+	 *            classes!
 	 * @param subject
-	 *            class to be proxied. An instance of this class is created by
-	 *            invoking the constructor with the arguments passed as second
-	 *            and third parameters. Make sure a suitable constructor is
-	 *            visible (i.e. at least <code>protected</code>)
-	 * @param argumentTypes
-	 *            constructor signature. If {@link Optional#empty()}, the no-arg
-	 *            constructor is called.
-	 * @param arguments
-	 *            compatible wrapped arguments to pass to constructor.If
-	 *            {@link Optional#empty()}, the no-arg constructor is called.
-	 * 
-	 * @return a new proxied instance that throws {@link ITunesException}s
-	 *         instead of {@link RuntimeExceptions}
-	 * 
-	 * @see #createITunesException(RuntimeException)
+	 *            the instance of the subject to be proxied
+	 * @return a new instance that proxies <code>subject</code>
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T createWrapperProxy(Class<?> subject,
-			Optional<Class<?>[]> argumentTypes, Optional<Object[]> arguments) {
-		Enhancer e = new Enhancer();
-		e.setClassLoader(subject.getClassLoader());
-		e.setSuperclass(subject);
-		e.setCallback(new MethodInterceptor() {
-			@Override
-			public Object intercept(Object obj, Method method, Object[] args,
-					MethodProxy proxy) throws Throwable {
-				try {
-					return proxy.invokeSuper(obj, args);
-				} catch (RuntimeException e) {
-					throw ITunesException.createITunesException(e);
+	public static <I, T> I createWrapperProxy(
+			Class<? super T> subjectInterface, T subject) {
+		InvocationHandler handler = new WrappingInvocationHandler(subject);
+		Object proxy = Proxy.newProxyInstance(
+				subjectInterface.getClassLoader(),
+				new Class[] { subjectInterface }, handler);
+		return (I) proxy;
+	}
+
+	/**
+	 * {@link InvocationHandler} that is used by the wrapper proxy. This handler
+	 * just delegates to the proxied method but wraps any
+	 * {@link RuntimeException}s into {@link ITunesException}s.
+	 * 
+	 * @author schnatterer
+	 * @see ITunesException#createWrapperProxy(Class, Object)
+	 *
+	 */
+	private static class WrappingInvocationHandler implements InvocationHandler {
+		Object subject;
+
+		public WrappingInvocationHandler(Object subject) {
+			this.subject = subject;
+		}
+
+		@Override
+		public Object invoke(Object proxy, Method meth, Object[] args)
+				throws Throwable {
+			try {
+				return meth.invoke(subject, args);
+			} catch (InvocationTargetException ex) {
+				if (ex.getTargetException() instanceof RuntimeException) {
+					throw ITunesException
+							.createITunesException((RuntimeException) ex
+									.getTargetException());
+				} else {
+					throw ex.getTargetException();
 				}
 			}
-		});
-		if (argumentTypes.isPresent() && arguments.isPresent()) {
-			return (T) e.create(argumentTypes.get(), arguments.get());
-		} else {
-			// Invoke no-arg constructor
-			return (T) e.create();
 		}
 	}
 }
