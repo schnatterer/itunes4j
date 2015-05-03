@@ -1,5 +1,6 @@
 /**
- * Contains the entity implementations using com4j
+ * Contains the entity implementations using com4j.
+ * 
  * @author schnatterer
  *
  */

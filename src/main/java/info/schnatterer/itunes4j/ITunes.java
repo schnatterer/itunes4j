@@ -17,6 +17,7 @@ package info.schnatterer.itunes4j;
 
 import info.schnatterer.itunes4j.entity.Playlist;
 import info.schnatterer.itunes4j.entity.Track;
+import info.schnatterer.itunes4j.entity.com4j.Com4jPlaylist;
 import info.schnatterer.itunes4j.entity.com4j.Com4jTrack;
 import info.schnatterer.itunes4j.exception.ITunesException;
 
@@ -129,8 +130,8 @@ public class ITunes {
 			playlist = iTunes.createPlaylist(playlistName);
 
 			if (ITPlaylistKind.ITPlaylistKindUser.equals(playlist.kind())) {
-				return new Playlist(
-						playlist.queryInterface(IITUserPlaylist.class));
+				return Com4jPlaylist.createPlaylist(playlist
+						.queryInterface(IITUserPlaylist.class));
 			} else {
 				throw new ITunesException(
 						"Created playlist was of unexpected type \""

@@ -126,7 +126,7 @@ public class Com4jTrack implements Track {
 		super.finalize();
 	}
 
-	public IITFileOrCDTrack getWrappedTrack() {
+	protected IITFileOrCDTrack getWrappedTrack() {
 		return wrappedTrack;
 	}
 }

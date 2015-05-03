@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 /**
- * Contains the entities handeled by iTunes.
+ * Contains the entities handled by iTunes.
+ * 
  * @author schnatterer
  *
  */

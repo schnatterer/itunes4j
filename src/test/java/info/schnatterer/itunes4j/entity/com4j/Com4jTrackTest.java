@@ -27,7 +27,7 @@ import org.mockito.stubbing.Answer;
 
 import com4j.itunes.IITFileOrCDTrack;
 
-public class TrackTest {
+public class Com4jTrackTest {
 	/** Mocked iTunes COM Track that throws an exception on every method call. */
 	@SuppressWarnings("rawtypes")
 	private IITFileOrCDTrack iTunesTrackExceptionMock = mock(
