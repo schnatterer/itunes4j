@@ -33,8 +33,8 @@ public class Com4jPlaylist implements Playlist {
 	/**
 	 * Factory method for creating Playlists.
 	 * 
-	 * @param wrappedTrack
-	 *            the COM object wrapped by this {@link Com4jTrack}
+	 * @param wrappedPlaylist
+	 *            the COM object wrapped by this {@link Com4jPlaylist}
 	 * 
 	 * @return a new instance
 	 */
