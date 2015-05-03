@@ -18,80 +18,93 @@ package info.schnatterer.itunes4j.entity;
 import info.schnatterer.itunes4j.exception.ITunesException;
 
 import java.util.Date;
+import java.util.Optional;
 
 import com4j.itunes.IITFileOrCDTrack;
 
 public class Track {
+
 	private final IITFileOrCDTrack wrappedTrack;
 
-	public Track(IITFileOrCDTrack wrappedTrack) {
+	protected Track(IITFileOrCDTrack wrappedTrack) {
 		this.wrappedTrack = wrappedTrack;
 	}
 
+	/**
+	 * Factory method for creating Tracks.
+	 * 
+	 * @param wrappedTrack
+	 *            the COM object wrapped by this {@link Track}
+	 * 
+	 * @return a new instance
+	 */
+	public static Track createTrack(IITFileOrCDTrack wrappedTrack) {
+		return ITunesException.createWrapperProxy(Track.class,
+				Optional.of(new Class<?>[] { IITFileOrCDTrack.class }),
+				Optional.of(new Object[] { wrappedTrack }));
+	}
+
 	public int getPlayedCount() throws ITunesException {
-		return ITunesException.wrap(() -> wrappedTrack.playedCount());
+		return wrappedTrack.playedCount();
 	}
 
 	public void setPlayedCount(int playedCount) throws ITunesException {
-		ITunesException.wrap(() -> wrappedTrack.playedCount(playedCount));
+		wrappedTrack.playedCount(playedCount);
 	}
 
 	public Date getPlayedDate() throws ITunesException {
-		return ITunesException.wrap(() -> wrappedTrack.playedDate());
+		return wrappedTrack.playedDate();
 	}
 
 	public void setPlayedDate(Date playedDate) throws ITunesException {
-		ITunesException.wrap(() -> wrappedTrack.playedDate(playedDate));
+		wrappedTrack.playedDate(playedDate);
 	}
 
 	public int getSkippedCount() throws ITunesException {
-		return ITunesException.wrap(() -> wrappedTrack.skippedCount());
+		return wrappedTrack.skippedCount();
 	}
 
 	public void setSkippedCount(int skippedCount) throws ITunesException {
-		ITunesException.wrap(() -> wrappedTrack.skippedCount(skippedCount));
+		wrappedTrack.skippedCount(skippedCount);
 	}
 
 	public Date getSkippedDate() throws ITunesException {
-		return ITunesException.wrap(() -> wrappedTrack.skippedDate());
+		return wrappedTrack.skippedDate();
 	}
 
 	public void setSkippedDate(Date skippedDate) throws ITunesException {
-		ITunesException.wrap(() -> wrappedTrack.skippedDate(skippedDate));
+		wrappedTrack.skippedDate(skippedDate);
 	}
 
 	public Rating getRating() throws ITunesException {
-		return ITunesException.wrap(() -> Rating.fromInternalInt(wrappedTrack
-				.rating()));
+		return Rating.fromInternalInt(wrappedTrack.rating());
 	}
 
 	public void setRating(Rating rating) throws ITunesException {
-		ITunesException.wrap(() -> wrappedTrack.rating(rating.toInt()));
+		wrappedTrack.rating(rating.toInt());
 	}
 
 	public Date getDateAdded() throws ITunesException {
-		return ITunesException.wrap(() -> wrappedTrack.dateAdded());
+		return wrappedTrack.dateAdded();
 	}
 
 	public Date getDateModified() throws ITunesException {
-		return ITunesException.wrap(() -> wrappedTrack.modificationDate());
+		return wrappedTrack.modificationDate();
 	}
 
 	public String getName() throws ITunesException {
-		return ITunesException.wrap(() -> wrappedTrack.name());
+		return wrappedTrack.name();
 	}
 
 	public String getArtist() throws ITunesException {
-		return ITunesException.wrap(() -> wrappedTrack.artist());
+		return wrappedTrack.artist();
 	}
 
 	/**
 	 * Releases reference to COM object.
-	 * 
-	 * @throws ITunesException
 	 */
 	public void dispose() throws ITunesException {
-		ITunesException.wrap(() -> wrappedTrack.dispose());
+		wrappedTrack.dispose();
 	}
 
 	protected IITFileOrCDTrack getWrappedTrack() {

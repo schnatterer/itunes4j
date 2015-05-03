@@ -15,7 +15,12 @@
  */
 package info.schnatterer.itunes4j.exception;
 
-import java.util.function.Supplier;
+import java.lang.reflect.Method;
+import java.util.Optional;
+
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
 
 import com4j.ComException;
 
@@ -107,43 +112,58 @@ public class ITunesException extends Exception {
 		return new ITunesException(e);
 	}
 
-	/**
-	 * Runs code without return value and wraps any possible
-	 * {@link RuntimeException} into a {@link ITunesException}.
-	 * 
-	 * @param runnable
-	 *            the code block to execute
-	 * 
-	 * @throws ITunesException
-	 *             wraps any {@link RuntimeException}
-	 * 
-	 * @see #createITunesException(RuntimeException)
-	 */
-	public static <T> void wrap(Runnable runnable) throws ITunesException {
-		try {
-			runnable.run();
-		} catch (RuntimeException e) {
-			throw ITunesException.createITunesException(e);
-		}
-	}
+	//
+	// @SuppressWarnings("unchecked")
+	// public static <T> T createWrapperProxy(T t) {
+	// Object proxy = Proxy.newProxyInstance(t.getClass().getClassLoader(),
+	// new Class[] { t.getClass() }, new WrappingInvocationHandler(t));
+	// return (T) proxy;
+	// }
 
 	/**
-	 * Runs code with return value and wraps any possible
-	 * {@link RuntimeException} into a {@link ITunesException}.
+	 * Creates a proxy object that wraps all {@link RuntimeException} thrown by
+	 * any method of an subject into {@link ITunesException}s. Make sure to
+	 * provide the proper method signature on the subject's methods!
 	 * 
-	 * @param supplier
-	 *            the code block to execute
+	 * @param subject
+	 *            class to be proxied. An instance of this class is created by
+	 *            invoking the constructor with the arguments passed as second
+	 *            and third parameters. Make sure a suitable constructor is
+	 *            visible (i.e. at least <code>protected</code>)
+	 * @param argumentTypes
+	 *            constructor signature. If {@link Optional#empty()}, the no-arg
+	 *            constructor is called.
+	 * @param arguments
+	 *            compatible wrapped arguments to pass to constructor.If
+	 *            {@link Optional#empty()}, the no-arg constructor is called.
 	 * 
-	 * @throws ITunesException
-	 *             wraps any {@link RuntimeException}
+	 * @return a new proxied instance that throws {@link ITunesException}s
+	 *         instead of {@link RuntimeExceptions}
 	 * 
 	 * @see #createITunesException(RuntimeException)
 	 */
-	public static <T> T wrap(Supplier<T> supplier) throws ITunesException {
-		try {
-			return supplier.get();
-		} catch (RuntimeException e) {
-			throw ITunesException.createITunesException(e);
+	@SuppressWarnings("unchecked")
+	public static <T> T createWrapperProxy(Class<?> subject,
+			Optional<Class<?>[]> argumentTypes, Optional<Object[]> arguments) {
+		Enhancer e = new Enhancer();
+		e.setClassLoader(subject.getClassLoader());
+		e.setSuperclass(subject);
+		e.setCallback(new MethodInterceptor() {
+			@Override
+			public Object intercept(Object obj, Method method, Object[] args,
+					MethodProxy proxy) throws Throwable {
+				try {
+					return proxy.invokeSuper(obj, args);
+				} catch (RuntimeException e) {
+					throw ITunesException.createITunesException(e);
+				}
+			}
+		});
+		if (argumentTypes.isPresent() && arguments.isPresent()) {
+			return (T) e.create(argumentTypes.get(), arguments.get());
+		} else {
+			// Invoke no-arg constructor
+			return (T) e.create();
 		}
 	}
 }

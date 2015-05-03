@@ -92,8 +92,8 @@ public class ITunes {
 			track = futureTrack.tracks(1);
 			if (ITTrackKind.ITTrackKindFile.equals(track.kind())) {
 				// Cast to File Track
-				Track wrappedTrack = new Track(
-						track.queryInterface(IITFileOrCDTrack.class));
+				Track wrappedTrack = Track.createTrack(track
+						.queryInterface(IITFileOrCDTrack.class));
 				return wrappedTrack;
 			} else {
 				throw new ITunesException(

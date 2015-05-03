@@ -45,7 +45,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void getPlayedCountException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).getPlayedCount();
+		Track.createTrack(iTunesTrackExceptionMock).getPlayedCount();
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void setPlayedCountException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).setPlayedCount(1);
+		Track.createTrack(iTunesTrackExceptionMock).setPlayedCount(1);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void getPlayedDateException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).getPlayedDate();
+		Track.createTrack(iTunesTrackExceptionMock).getPlayedDate();
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void setPlayedDateException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).setPlayedDate(new Date());
+		Track.createTrack(iTunesTrackExceptionMock).setPlayedDate(new Date());
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void getSkippedCountException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).getSkippedCount();
+		Track.createTrack(iTunesTrackExceptionMock).getSkippedCount();
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void setSkippedCountException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).setSkippedCount(1);
+		Track.createTrack(iTunesTrackExceptionMock).setSkippedCount(1);
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void getSkippedDateException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).getSkippedDate();
+		Track.createTrack(iTunesTrackExceptionMock).getSkippedDate();
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void setSkippedDateException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).setSkippedDate(new Date());
+		Track.createTrack(iTunesTrackExceptionMock).setSkippedDate(new Date());
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void getRatingException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).getRating();
+		Track.createTrack(iTunesTrackExceptionMock).getRating();
 	}
 
 	/**
@@ -147,7 +147,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void setRatingException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).setRating(Rating.One);
+		Track.createTrack(iTunesTrackExceptionMock).setRating(Rating.One);
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void getDateAddedException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).getDateAdded();
+		Track.createTrack(iTunesTrackExceptionMock).getDateAdded();
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void getDateModifiedException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).getDateModified();
+		Track.createTrack(iTunesTrackExceptionMock).getDateModified();
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void getNameException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).getName();
+		Track.createTrack(iTunesTrackExceptionMock).getName();
 	}
 
 	/**
@@ -191,7 +191,7 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void getArtistException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).getArtist();
+		Track.createTrack(iTunesTrackExceptionMock).getArtist();
 	}
 
 	/**
@@ -202,6 +202,6 @@ public class TrackTest {
 	 */
 	@Test(expected = ITunesException.class)
 	public void disposeException() throws ITunesException {
-		new Track(iTunesTrackExceptionMock).dispose();
+		Track.createTrack(iTunesTrackExceptionMock).dispose();
 	}
 }
