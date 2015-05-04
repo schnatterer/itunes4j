@@ -21,20 +21,28 @@ import info.schnatterer.itunes4j.exception.ITunesException;
 
 import java.util.Date;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import com4j.itunes.IITFileOrCDTrack;
 
 public class Com4jTrackTest {
+	private static final String TEST_EXCEPTION_MSG = Com4jTrackTest.class
+			.getSimpleName() + "test exception";
+
+	@Rule
+	public ExpectedException expectedEx = ExpectedException.none();
+
 	/** Mocked iTunes COM Track that throws an exception on every method call. */
 	@SuppressWarnings("rawtypes")
 	private IITFileOrCDTrack iTunesTrackExceptionMock = mock(
 			IITFileOrCDTrack.class, new Answer() {
 				@Override
 				public Object answer(InvocationOnMock invocation) {
-					throw new RuntimeException("test exception");
+					throw new RuntimeException(TEST_EXCEPTION_MSG);
 				}
 			});
 
@@ -45,8 +53,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void getPlayedCountException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock)
 				.getPlayedCount();
 	}
@@ -58,8 +69,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void setPlayedCountException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock)
 				.setPlayedCount(1);
 	}
@@ -70,8 +84,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void getPlayedDateException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock)
 				.getPlayedDate();
 	}
@@ -83,8 +100,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void setPlayedDateException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock).setPlayedDate(
 				new Date());
 	}
@@ -96,8 +116,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void getSkippedCountException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock)
 				.getSkippedCount();
 	}
@@ -109,8 +132,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void setSkippedCountException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock)
 				.setSkippedCount(1);
 	}
@@ -122,8 +148,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void getSkippedDateException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock)
 				.getSkippedDate();
 	}
@@ -135,8 +164,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void setSkippedDateException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock)
 				.setSkippedDate(new Date());
 	}
@@ -147,8 +179,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void getRatingException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock).getRating();
 	}
 
@@ -159,8 +194,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void setRatingException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock).setRating(
 				Rating.One);
 	}
@@ -171,8 +209,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void getDateAddedException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock).getDateAdded();
 	}
 
@@ -183,8 +224,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void getDateModifiedException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock)
 				.getDateModified();
 	}
@@ -195,8 +239,11 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void getNameException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock).getName();
 	}
 
@@ -206,10 +253,26 @@ public class Com4jTrackTest {
 	 * @throws ITunesException
 	 *             the expected exception
 	 */
-	@Test(expected = ITunesException.class)
+	@Test
 	public void getArtistException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
 		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock).getArtist();
 	}
 
+	/**
+	 * Asserts that {@link Com4jTrack#getLocation()} properly wraps exceptions.
+	 * 
+	 * @throws ITunesException
+	 *             the expected exception
+	 */
+	@Test
+	public void getLocationException() throws ITunesException {
+		expectedEx.expect(ITunesException.class);
+		expectedEx.expectMessage(TEST_EXCEPTION_MSG);
+
+		Com4jEntityFactory.createTrack(iTunesTrackExceptionMock).getLocation();
+	}
 	// TODO finalize()
 }

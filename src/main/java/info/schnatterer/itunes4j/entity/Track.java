@@ -49,4 +49,6 @@ public interface Track {
 
 	String getArtist() throws ITunesException;
 
+	String getLocation() throws ITunesException;
+
 }

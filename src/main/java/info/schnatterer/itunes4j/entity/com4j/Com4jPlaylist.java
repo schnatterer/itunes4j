@@ -40,14 +40,7 @@ class Com4jPlaylist implements Playlist {
 
 	@Override
 	public void addTrack(Track track) throws ITunesException {
-		if (track instanceof Com4jTrack) {
-			wrappedPlaylist.addTrack(((Com4jTrack) track).getWrappedTrack());
-		} else {
-			// This must be some kind of programming error
-			throw new IllegalArgumentException("Incopatible implemenations "
-					+ Com4jPlaylist.class.getName() + " and "
-					+ track.getClass().getName() + ". Can't add to playlist");
-		}
+		addFile(track.getLocation());
 	}
 
 	/**

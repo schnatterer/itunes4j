@@ -116,4 +116,9 @@ class Com4jTrack implements Track {
 	protected IITFileOrCDTrack getWrappedTrack() {
 		return wrappedTrack;
 	}
+
+	@Override
+	public String getLocation() throws ITunesException {
+		return wrappedTrack.location();
+	}
 }
