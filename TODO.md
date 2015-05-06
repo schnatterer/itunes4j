@@ -1,0 +1,2 @@
+- create specific exceptions for 
+  - ERROR: Conversion failed with error "com4j.ComException: 80080005 CoCreateInstance failed : Starten des Servers fehlgeschlagen : .\com4j.cpp:153". Please see log file.)
