@@ -24,3 +24,8 @@ See the [wiki](https://github.com/schnatterer/itunes4j/wiki) for details on how 
 ###Version 1.0
 Very first version that provides very basic functionality for adding tracks and playlists to iTunes.   
 Tested and compiled against iTunes 12.1.2.27 64-Bit.
+
+
+## Examples
+This API is used in the following projects for example
+- [songbird2itunes](https://github.com/schnatterer/songbird2itunes)
