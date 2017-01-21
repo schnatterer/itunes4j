@@ -1,4 +1,7 @@
 # itunes4j
+
+[![License](https://img.shields.io/github/license/schnatterer/itunes4j.svg)](LICENSE)
+
 A java wrapper for the windows COM API of iTunes. That is, this will only work on windows.
 
 ## How to use
